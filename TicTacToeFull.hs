@@ -1,7 +1,7 @@
 module TicTacToeFull where
 
-import Prelude hiding (last)
-import Data.List hiding (last)
+import Prelude
+import Data.List
 import Data.Maybe
 import Control.Monad
 import Text.Read
@@ -97,8 +97,8 @@ next :: Player -> Player
 next O = X
 next X = O
 
-last :: Player -> Player
-last = next
+previous :: Player -> Player
+previous = next
 
 getIndex :: String -> IO Int
 getIndex prompt = do
@@ -117,7 +117,7 @@ goto :: (Int, Int) -> IO ()
 goto (x, y) = putStr $ "\ESC[" ++ show y ++ ";" ++ show x ++ "H"
 
 runBoard :: Board -> Player -> IO ()
-runBoard b p | wins b (last p) = putStrLn ("Player " ++ show (last p) ++ " wins!")
+runBoard b p | wins b (previous p) = putStrLn ("Player " ++ show (previous p) ++ " wins!")
              | isFull b = putStrLn "It is a draw!"
              | p == X = do
                  putStrLn "Player X is thinking..."
